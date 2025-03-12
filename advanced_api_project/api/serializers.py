@@ -47,3 +47,4 @@ class AuthorSerializer(serializers.ModelSerializer):
     - `read_only=True` ensures that book records cannot be modified directly from the AuthorSerializer.
     - This enables automatic serialization of an author's books when retrieving author data.
     """
+#this is it

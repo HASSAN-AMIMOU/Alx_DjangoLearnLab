@@ -17,7 +17,7 @@ class BookSerializer(serializers.ModelSerializer):
     def validate_publication_year(self, value):
         """
         Custom validation for publication_year.
-        
+
         Ensures that the publication year is not set in the future.
         """
         current_year = datetime.datetime.now().year
@@ -47,4 +47,3 @@ class AuthorSerializer(serializers.ModelSerializer):
     - `read_only=True` ensures that book records cannot be modified directly from the AuthorSerializer.
     - This enables automatic serialization of an author's books when retrieving author data.
     """
-#this is it

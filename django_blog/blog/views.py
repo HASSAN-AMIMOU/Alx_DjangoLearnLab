@@ -10,6 +10,8 @@ from .models import Comment
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import CommentForm
 from django.db.models import Q
+from django.views.generic import ListView
+from .models import Post, Tag
 
 def register(request):
     if request.method == 'POST':
@@ -183,7 +185,16 @@ def posts_by_tag(request, tag_name):
     return render(request, 'blog/posts_by_tag.html', {'posts': posts, 'tag_name': tag_name})
 
 
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
 
+    def get_queryset(self):
+        # Filter posts by the tag slug
+        tag_slug = self.kwargs['tag_slug']
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        return Post.objects.filter(tags=tag)
 
 
 

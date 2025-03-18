@@ -27,3 +27,9 @@
 <a href="{% url 'add_comment' post.pk %}">Add a Comment</a>
 {% endif %}
 {% endblock %}
+<div class="tags">
+    Tags:
+    {% for tag in post.tags.all %}
+    <a href="{% url 'posts_by_tag' tag.name %}">{{ tag.name }}</a>
+    {% endfor %}
+</div>

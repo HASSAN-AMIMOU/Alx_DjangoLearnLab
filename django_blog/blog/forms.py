@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from .models import Comment
+from taggit.forms import TagWidget
 from .models import Post, Tag
 
 class SignUpForm(UserCreationForm):
@@ -17,17 +18,13 @@ class CommentForm(forms.ModelForm):
         fields = ['content']
 
 class PostForm(forms.ModelForm):
-    tags = forms.ModelMultipleChoiceField(
-        queryset=Tag.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
-    )
-
+   
     class Meta:
         model = Post
         fields = ['title', 'content', 'tags']
-
-
+        widgets = {
+            'tags': TagWidget(),
+        }
 
 
 

@@ -1,6 +1,6 @@
 {% extends "blog/base.html" %}
 {% block content %}
-<h1>Posts tagged with "{{ tag.name }}"</h1>
+<h1>Posts tagged with "{{ tag_name }}"</h1>
 {% for post in posts %}
 <div class="post">
     <h2><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>

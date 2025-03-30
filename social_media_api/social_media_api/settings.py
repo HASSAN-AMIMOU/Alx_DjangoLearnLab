@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'posts',
     'notifications',
     'django.contrib.contenttypes',  
+    
 ]
 
 MIDDLEWARE = [

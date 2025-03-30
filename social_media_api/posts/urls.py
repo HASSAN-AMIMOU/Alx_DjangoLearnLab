@@ -1,20 +1,11 @@
+from django.contrib import admin
 from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import PostViewSet, CommentViewSet
-
-router = DefaultRouter()
-router.register(r'posts', PostViewSet, basename='post')
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('posts/<int:post_pk>/comments/', 
-         CommentViewSet.as_view({'get': 'list', 'post': 'create'}), 
-         name='post-comments'),
-    path('posts/<int:post_pk>/comments/<int:pk>/', 
-         CommentViewSet.as_view({'get': 'retrieve', 'put': 'update', 
-                               'patch': 'partial_update', 'delete': 'destroy'}), 
-         name='comment-detail'),
-          path('admin/', admin.site.urls),
-    path('api/auth/', include('accounts.urls')),
+    path('admin/', admin.site.urls),
+    path('api/accounts/', include('accounts.urls')),
+    path('admin/', admin.site.urls),
     path('api/', include('posts.urls')),
+     path('api/', include('accounts.urls')),  # Add the accounts URLs here
+    path('api/', include('posts.urls')),    # Add the posts URLs here
 ]

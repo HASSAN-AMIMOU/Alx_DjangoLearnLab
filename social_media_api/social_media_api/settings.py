@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import filters
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -44,6 +46,7 @@ INSTALLED_APPS = [
     
     # Local apps
     'accounts',  # Make sure this line exists
+    'posts',
 ]
 
 MIDDLEWARE = [
@@ -138,7 +141,9 @@ AUTH_USER_MODEL = 'accounts.User'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
 
 from datetime import timedelta
@@ -149,7 +154,11 @@ SIMPLE_JWT = {
 }
 
 
-
+class PostViewSet(viewsets.ModelViewSet):
+    ...
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filterset_fields = ['author']
+    search_fields = ['title', 'content']
 
 
 
